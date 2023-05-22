@@ -60,6 +60,7 @@ module Puppet::X::Jenkins::Util
     end
     res.rstrip
   end
+  module_function :hash_to_xml
 
   def array_to_xml(a, key, indent: '', path: '')
     Puppet.debug("INSIDE ARRAY_TO_XML")
@@ -86,6 +87,7 @@ module Puppet::X::Jenkins::Util
     end
     res.rstrip
   end
+  module_function :array_to_xml
 
   def primitive_to_xml(value, key, indent: '')
     Puppet.debug("INSIDE PRIM_TO_XML")
@@ -98,6 +100,7 @@ module Puppet::X::Jenkins::Util
     value_s = CGI.escapeHTML(value.to_s)
     "#{indent}<#{key}>#{value_s}</#{key}>\n"
   end
+  module_function :primitive_to_xml
 
   def pretty_xml(str)
     Puppet.debug("INSIDE PRETTY_XML")
@@ -110,4 +113,5 @@ module Puppet::X::Jenkins::Util
     formatter.write(doc, resultstr)
     resultstr
   end
+  module_function :pretty_xml
 end
