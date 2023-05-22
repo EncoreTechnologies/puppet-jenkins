@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'puppet/util/warnings'
 
 require 'json'

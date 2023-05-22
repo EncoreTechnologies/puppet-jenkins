@@ -1,6 +1,5 @@
-# frozen_string_literal: true
-
 require_relative '../jenkins'
+require 'rexml/document'
 
 module Puppet::X::Jenkins::Util
   def unundef(data)
@@ -30,4 +29,16 @@ module Puppet::X::Jenkins::Util
     end
   end
   module_function :iterate
+
+  def pretty_xml(str)
+    doc = REXML::Document.new(str)
+    formatter = REXML::Formatters::Pretty.new
+
+    # Compact uses as little whitespace as possible
+    formatter.compact = true
+    resultstr = ''
+    formatter.write(doc, resultstr)
+    resultstr
+  end
+  module_function :pretty_xml
 end
