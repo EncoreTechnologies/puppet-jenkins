@@ -2,7 +2,7 @@ require 'puppet/util/warnings'
 
 require 'json'
 
-require File.join(File.dirname(__FILE__), '../../..', 'puppet/x/jenkins/util')
+require_relative '../../../puppet/x/jenkins/util'
 require File.join(File.dirname(__FILE__), '../../..', 'puppet/x/jenkins/provider/cli')
 
 Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provider::Cli) do
@@ -17,7 +17,7 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
       new(
         name: job['name'],
         ensure: :present,
-        config: job['config'],
+        config: Puppet::X::Jenkins::Util.pretty_xml(job['config']) + "\n",
         enable: job['enabled']
       )
     end
