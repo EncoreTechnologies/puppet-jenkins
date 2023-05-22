@@ -33,15 +33,21 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
 
     @property_hash = resource.to_hash unless resource.nil?
 
+
+    config_hash = {
+      config: config
+    }
+    config_payload = Puppet::X::Jenkins::Util.hash_to_xml(config_hash)
+
     # XXX the enable property is being ignored on flush because this modifies
     # the configuration string and breaks idempotent.  Should the property be
     # removed?
     case self.ensure
     when :present
       if update
-        update_job if replace
+        update_job(config_payload) if replace
       else
-        create_job
+        create_job(config_payload)
       end
     when :absent
       delete_job
@@ -82,12 +88,12 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
   end
   private_class_method :job_enabled
 
-  def create_job
-    cli(['create-job', name], stdin: config)
+  def create_job(config_payload)
+    cli(['create-job', name], stdin: config_payload)
   end
 
-  def update_job
-    cli(['update-job', name], stdin: config)
+  def update_job(config_payload)
+    cli(['update-job', name], stdin: config_payload)
   end
 
   def delete_job
