@@ -39,6 +39,8 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
     }
     config_payload = Puppet::X::Jenkins::Util.hash_to_xml(config_hash)
 
+    Puppet.debug("AFTER hash_to_xml: #{config_payload}")
+
     # XXX the enable property is being ignored on flush because this modifies
     # the configuration string and breaks idempotent.  Should the property be
     # removed?
