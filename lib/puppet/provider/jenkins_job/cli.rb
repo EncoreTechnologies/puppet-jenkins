@@ -2,6 +2,8 @@ require 'puppet/util/warnings'
 
 require 'json'
 
+require File.expand_path(File.join(File.dirname(__FILE__), '../..', 'x/jenkins/provider/cli'))
+
 require File.join(File.dirname(__FILE__), '../../..', 'puppet/x/jenkins/util')
 require File.join(File.dirname(__FILE__), '../../..', 'puppet/x/jenkins/provider/cli')
 
