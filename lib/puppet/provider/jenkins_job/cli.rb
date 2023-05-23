@@ -17,7 +17,7 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
       new(
         name: job['name'],
         ensure: :present,
-        config: Puppet::X::Jenkins::Util.pretty_xml(job['config']) + "\n",
+        config: Puppet::X::Jenkins::Util.pretty_xml(job['config']),
         enable: job['enabled']
       )
     end
