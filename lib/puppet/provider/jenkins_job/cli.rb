@@ -14,10 +14,12 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
     Puppet.debug("#{sname} instances: #{jobs.map { |i| i['name'] }}")
 
     jobs.map do |job|
+      Puppet.debug("creating new job resource: #{job['name']}")
+
       new(
         name: job['name'],
         ensure: :present,
-        config: Puppet::X::Jenkins::Util.pretty_xml(job['config']),
+        config: job['config'],
         enable: job['enabled']
       )
     end

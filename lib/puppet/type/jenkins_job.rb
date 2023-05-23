@@ -22,10 +22,15 @@ Puppet::X::Jenkins::Type::Cli.newtype(:jenkins_job) do
 
     include Puppet::Util::Diff
 
+    # 'is'     = the value that was discovered by puppet on target node
+    # 'should' = value supplied by manifest during catalog compilation
     def insync?(is)
       is_insync = super(is)
       # show diff of XML :)
       unless is_insync
+        Puppet.debug("lcs_diff 'is': #{is}")
+        Puppet.debug("lcs_diff 'should': #{should}")
+
         # diff the two strings
         diff_output = lcs_diff(is, should)
         send(@resource[:loglevel], "\n" + diff_output)
