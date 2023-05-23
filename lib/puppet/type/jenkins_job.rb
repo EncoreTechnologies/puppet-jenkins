@@ -28,9 +28,6 @@ Puppet::X::Jenkins::Type::Cli.newtype(:jenkins_job) do
       is_insync = super(is)
       # show diff of XML :)
       unless is_insync
-        Puppet.debug("lcs_diff 'is': #{is}")
-        Puppet.debug("lcs_diff 'should': #{should}")
-
         # diff the two strings
         diff_output = lcs_diff(is, should)
         send(@resource[:loglevel], "\n" + diff_output)
