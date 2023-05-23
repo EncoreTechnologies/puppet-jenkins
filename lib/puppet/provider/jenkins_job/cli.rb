@@ -14,8 +14,6 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
     Puppet.debug("#{sname} instances: #{jobs.map { |i| i['name'] }}")
 
     jobs.map do |job|
-      Puppet.debug("In jobs loop: #{job['config']}")
-
       new(
         name: job['name'],
         ensure: :present,
@@ -33,18 +31,7 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
     update = false
     update = true if exists?
 
-    Puppet.debug("In flush, BEFORE property hash: #{config}")
-
     @property_hash = resource.to_hash unless resource.nil?
-
-    Puppet.debug("In flush, AFTER property hash: #{config}")
-
-    # config_hash = {
-    #   config: config
-    # }
-    # config_payload = Puppet::X::Jenkins::Util.hash_to_xml(config_hash)
-
-    # Puppet.debug("AFTER hash_to_xml: #{config_payload}")
 
     # XXX the enable property is being ignored on flush because this modifies
     # the configuration string and breaks idempotent.  Should the property be
