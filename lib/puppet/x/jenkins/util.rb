@@ -111,6 +111,9 @@ module Puppet::X::Jenkins::Util
     formatter.compact = true
     resultstr = ''
     formatter.write(doc, resultstr)
+
+    Puppet.debug("pretty_xml result: #{resultstr}")
+
     resultstr
   end
   module_function :pretty_xml
