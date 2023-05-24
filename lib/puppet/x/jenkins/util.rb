@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../jenkins'
-require 'cgi'
-require 'rexml/document'
 
 module Puppet::X::Jenkins::Util
   def unundef(data)
