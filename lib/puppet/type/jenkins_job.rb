@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet/property/boolean'
 require 'puppet/parameter/boolean'
 require 'puppet/util/diff'
@@ -25,6 +27,7 @@ Puppet::X::Jenkins::Type::Cli.newtype(:jenkins_job) do
     # 'is'     = the value that was discovered by puppet on target node
     # 'should' = value supplied by manifest during catalog compilation
     def insync?(is)
+      is = is + "\n" unless is.end_with?("\n")
       is_insync = super(is)
       # show diff of XML :)
       unless is_insync

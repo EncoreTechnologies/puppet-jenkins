@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet/util/warnings'
 
 require 'json'
@@ -17,7 +19,7 @@ Puppet::Type.type(:jenkins_job).provide(:cli, parent: Puppet::X::Jenkins::Provid
       new(
         name: job['name'],
         ensure: :present,
-        config: job['config'] + "\n",
+        config: job['config'],
         enable: job['enabled']
       )
     end
